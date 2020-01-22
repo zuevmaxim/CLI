@@ -1,0 +1,5 @@
+language: python
+install:
+  - pip install lark-parser
+skript:
+  - python -m unittest 
