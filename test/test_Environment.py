@@ -1,7 +1,8 @@
 import unittest
 
-from environment.Environment import Environment
 from ShellException import ShellException
+from environment.Environment import Environment
+from environment.os_environment import extend_environment
 
 
 class EnvironmentTest(unittest.TestCase):
@@ -18,6 +19,10 @@ class EnvironmentTest(unittest.TestCase):
     def testNonExisting(self):
         self.env.set('x', 'y')
         self.assertRaises(ShellException, lambda: self.env.get('y'))
+
+    def testOsEnvironment(self):
+        extend_environment(self.env)
+        self.assertTrue('PATH' in self.env.data)
 
 
 if __name__ == '__main__':
