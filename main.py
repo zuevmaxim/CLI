@@ -8,7 +8,7 @@ def main():
     interpreter = Interpreter()
     while True:
         try:
-            input_string = sys.stdin.readline()
+            input_string = sys.stdin.readline()[:-1]
             interpreter.interpret(input_string)
         except ShellException as e:
             print(e.error)
