@@ -4,6 +4,8 @@ from ShellException import ShellException
 class Environment:
     def __init__(self):
         self.data = {}
+        self.code = 0
+        self.exit = False
 
     def set(self, key, value):
         self.data[key] = value

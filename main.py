@@ -15,7 +15,7 @@ def enable_debug_logging():
 
 def main():
     shell = Shell()
-    while True:
+    while not shell.is_exit():
         try:
             input_string = sys.stdin.readline()[:-1]
             shell.execute(input_string)

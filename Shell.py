@@ -11,3 +11,6 @@ class Shell:
 
     def execute(self, input_string):
         self.handlers_net.run(input_string)
+
+    def is_exit(self):
+        return self.env.exit
