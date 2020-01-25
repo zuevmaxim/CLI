@@ -5,7 +5,9 @@ from handlers.Handler import Handler
 
 
 class CommandsRunHandler(Handler):
-    def run(self, commands):
+    """Runs commands one by one passing data."""
+
+    def run(self, commands: list) -> None:
         input_stream = io.StringIO()
         output_stream = io.StringIO()
         for command in commands:

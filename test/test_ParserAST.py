@@ -2,6 +2,8 @@ import unittest
 
 from lark import Tree, Token
 
+from commands.CommandFactory import CommandFactory
+from environment.Environment import Environment
 from parsing.ShellParser import ShellParser
 
 start = 'start'
@@ -19,7 +21,7 @@ args = 'args'
 
 class ASTParseTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.parser = ShellParser(None)
+        self.parser = ShellParser(CommandFactory(Environment()))
 
     def ast(self, input_string):
         return self.parser.get_ast(input_string)

@@ -3,6 +3,7 @@ from lark.exceptions import UnexpectedCharacters, UnexpectedToken, LarkError
 from lark.reconstruct import Reconstructor
 
 from ShellException import ShellException
+from environment.Environment import Environment
 
 
 class SubstitutionParser:
@@ -14,7 +15,7 @@ class SubstitutionParser:
         self.parser = Lark(file, parser="lalr")
         file.close()
 
-    def parse(self, env, string):
+    def parse(self, env: Environment, string: str) -> str:
         try:
             tree = self.parser.parse(string)
 
@@ -32,11 +33,11 @@ class SubstitutionParser:
 class SubstitutionTransformer(Transformer):
     """Replace all substitution tokens by variable value."""
 
-    def __init__(self, env):
+    def __init__(self, env: Environment):
         super().__init__()
         self.env = env
         self.string_token = 'INTERNAL_STRING'
 
-    def substitution(self, args):
+    def substitution(self, args: list) -> Token:
         name = self.env.get(args[1])
         return Token(self.string_token, name)

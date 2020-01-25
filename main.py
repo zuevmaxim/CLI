@@ -4,7 +4,7 @@ from Shell import Shell
 from ShellException import ShellException
 
 
-def enable_debug_logging():
+def enable_debug_logging() -> None:
     import logging
     logging.basicConfig(level=logging.DEBUG)
 

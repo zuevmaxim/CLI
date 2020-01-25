@@ -1,10 +1,13 @@
+import io
 import logging
 
 from commands.Command import Command
 
 
 class EchoCommand(Command):
-    def execute(self, input_stream, output_stream):
+    """Echo command prints it's arguments. Input stream is ignored."""
+
+    def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
         logging.debug("[EchoCommand] args = " + str(self.args))
         output_stream.write(" ".join(self.args))
         return 0
