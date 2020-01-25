@@ -1,5 +1,6 @@
 from commands.Command import Command
 from commands.EchoCommand import EchoCommand
+from commands.EqualityCommand import EqualityCommand
 from commands.ExitCommand import ExitCommand
 from environment import Environment
 
@@ -14,6 +15,7 @@ class CommandFactory:
         self.switcher = {
             "echo": self.create_echo,
             "exit": self.create_exit,
+            CommandFactory.equality_command_name: self.create_equality
         }
 
     def create_command(self, command_name: str, args: list) -> Command:
@@ -33,3 +35,6 @@ class CommandFactory:
 
     def create_exit(self, args: list) -> ExitCommand:
         return ExitCommand(args, self.environment)
+
+    def create_equality(self, args: list) -> EqualityCommand:
+        return EqualityCommand(args, self.environment)

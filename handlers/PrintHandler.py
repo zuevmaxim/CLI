@@ -8,5 +8,6 @@ class PrintHandler(Handler):
 
     def run(self, request: str) -> None:
         logging.debug("[PrintHandler] input = " + request)
-        print(request)
+        if len(request) > 0:
+            print(request)
         self.on_finish(request)
