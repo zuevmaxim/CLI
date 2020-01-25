@@ -1,3 +1,4 @@
+from commands.CatCommand import CatCommand
 from commands.Command import Command
 from commands.EchoCommand import EchoCommand
 from commands.EqualityCommand import EqualityCommand
@@ -18,6 +19,7 @@ class CommandFactory:
             "exit": self.create_exit,
             CommandFactory.equality_command_name: self.create_equality,
             "pwd": self.create_pwd,
+            "cat": self.create_cat,
         }
 
     def create_command(self, command_name: str, args: list) -> Command:
@@ -43,3 +45,6 @@ class CommandFactory:
 
     def create_pwd(self, args: list) -> PwdCommand:
         return PwdCommand(args, self.environment)
+
+    def create_cat(self, args: list) -> CatCommand:
+        return CatCommand(args, self.environment)
