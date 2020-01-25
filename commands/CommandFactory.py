@@ -2,6 +2,7 @@ from commands.Command import Command
 from commands.EchoCommand import EchoCommand
 from commands.EqualityCommand import EqualityCommand
 from commands.ExitCommand import ExitCommand
+from commands.PwdCommand import PwdCommand
 from environment import Environment
 
 
@@ -15,7 +16,8 @@ class CommandFactory:
         self.switcher = {
             "echo": self.create_echo,
             "exit": self.create_exit,
-            CommandFactory.equality_command_name: self.create_equality
+            CommandFactory.equality_command_name: self.create_equality,
+            "pwd": self.create_pwd,
         }
 
     def create_command(self, command_name: str, args: list) -> Command:
@@ -38,3 +40,6 @@ class CommandFactory:
 
     def create_equality(self, args: list) -> EqualityCommand:
         return EqualityCommand(args, self.environment)
+
+    def create_pwd(self, args: list) -> PwdCommand:
+        return PwdCommand(args, self.environment)
