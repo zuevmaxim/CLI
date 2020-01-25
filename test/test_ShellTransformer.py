@@ -2,11 +2,13 @@ import unittest
 
 from commands.CommandFactory import CommandFactory
 from commands.EchoCommand import EchoCommand
+from commands.ExitCommand import ExitCommand
+from environment.Environment import Environment
 from parsing.ShellParser import ShellParser
 
 
 class ShellTransformerTest(unittest.TestCase):
-    command_factory = CommandFactory()
+    command_factory = CommandFactory(Environment())
 
     def setUp(self) -> None:
         self.parser = ShellParser(ShellTransformerTest.command_factory)
@@ -28,6 +30,12 @@ class ShellTransformerTest(unittest.TestCase):
         for command, arg in zip(result, args):
             self.assertTrue(isinstance(command, EchoCommand))
             self.assertEqual([arg], command.args)
+
+    def testExit(self):
+        result = self.parse('exit')
+        self.assertEqual(1, len(result))
+        command = result[0]
+        self.assertTrue(isinstance(command, ExitCommand))
 
 
 if __name__ == '__main__':
