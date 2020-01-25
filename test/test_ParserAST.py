@@ -17,9 +17,9 @@ COMMAND_NAME = 'COMMAND_NAME'
 args = 'args'
 
 
-class ASTParseTEST(unittest.TestCase):
+class ASTParseTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.parser = ShellParser()
+        self.parser = ShellParser(None)
 
     def ast(self, input_string):
         return self.parser.get_ast(input_string)
