@@ -4,6 +4,15 @@ from Shell import Shell
 from ShellException import ShellException
 
 
+def enable_debug_logging():
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+
+
+# enable this for logging DEBUG messages
+# enable_debug_logging()
+
+
 def main():
     shell = Shell()
     while True:

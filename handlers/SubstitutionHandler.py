@@ -1,3 +1,5 @@
+import logging
+
 from handlers.Handler import Handler
 from substitution.SubstitutionParser import SubstitutionParser
 
@@ -11,4 +13,5 @@ class SubstitutionHandler(Handler):
 
     def run(self, string):
         result = self.parser.parse(self.environment, string)
+        logging.debug("[SubstitutionHandler] input = " + string + ", output = " + result)
         self.on_finish(result)
