@@ -1,15 +1,15 @@
 import sys
 
-from Interpreter import Interpreter
+from Shell import Shell
 from ShellException import ShellException
 
 
 def main():
-    interpreter = Interpreter()
+    shell = Shell()
     while True:
         try:
             input_string = sys.stdin.readline()[:-1]
-            interpreter.interpret(input_string)
+            shell.execute(input_string)
         except ShellException as e:
             print(e.error)
 

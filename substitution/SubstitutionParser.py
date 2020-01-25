@@ -6,6 +6,8 @@ from ShellException import ShellException
 
 
 class SubstitutionParser:
+    """Parse input in order to substitute all variables($var)."""
+
     def __init__(self):
         substitution_file = 'substitution/Substitution.lark'
         file = open(substitution_file)
@@ -28,10 +30,12 @@ class SubstitutionParser:
 
 
 class SubstitutionTransformer(Transformer):
+    """Replace all substitution tokens by variable value."""
+
     def __init__(self, env):
         super().__init__()
         self.env = env
-        self.string_token = "INTERNAL_STRING"
+        self.string_token = 'INTERNAL_STRING'
 
     def substitution(self, args):
         name = self.env.get(args[1])
