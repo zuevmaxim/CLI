@@ -4,6 +4,7 @@ from commands.EchoCommand import EchoCommand
 from commands.EqualityCommand import EqualityCommand
 from commands.ExitCommand import ExitCommand
 from commands.PwdCommand import PwdCommand
+from commands.WcCommand import WcCommand
 from environment import Environment
 
 
@@ -20,6 +21,7 @@ class CommandFactory:
             CommandFactory.equality_command_name: self.create_equality,
             "pwd": self.create_pwd,
             "cat": self.create_cat,
+            "wc": self.create_wc,
         }
 
     def create_command(self, command_name: str, args: list) -> Command:
@@ -48,3 +50,6 @@ class CommandFactory:
 
     def create_cat(self, args: list) -> CatCommand:
         return CatCommand(args, self.environment)
+
+    def create_wc(self, args: list) -> WcCommand:
+        return WcCommand(args, self.environment)
