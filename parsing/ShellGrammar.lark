@@ -1,9 +1,12 @@
 start : equality
       | commands
+      | eps
 
 equality : NAME "=" string
 
 commands : command ("|" command)*
+
+eps : WS*
 
 command : COMMAND_NAME args
 

@@ -22,9 +22,9 @@ class ShellParser:
             commands = self.shell_transformer.transform(tree)
             return commands
         except (UnexpectedCharacters, UnexpectedToken) as e:
-            raise ShellException('Unexpected characters at position %s' % e.pos_in_stream)
+            raise ShellException('[Parser]Unexpected characters at position %s' % e.pos_in_stream)
         except LarkError:
-            raise ShellException('Parse error')
+            raise ShellException('[Parser]Parse error')
 
     def get_ast(self, string: str) -> Tree:
         """Returns input string AST representation."""
@@ -66,6 +66,10 @@ class ShellTransformer(Transformer):
 
     def equality(self, args: list) -> list:
         return [self.command_factory.create_command(self.command_factory.equality_command_name, args)]
+
+    @staticmethod
+    def eps(_) -> list:
+        return []
 
     @staticmethod
     @v_args(inline=True)

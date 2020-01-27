@@ -25,9 +25,9 @@ class SubstitutionParser:
             reconstructor = Reconstructor(self.parser)
             return reconstructor.reconstruct(tree)
         except (UnexpectedCharacters, UnexpectedToken) as e:
-            raise ShellException('Unexpected characters at position %s' % e.pos_in_stream)
+            raise ShellException('[Substitution]Unexpected characters at position %s' % e.pos_in_stream)
         except LarkError:
-            raise ShellException('Parse error')
+            raise ShellException('[Substitution]Parse error')
 
 
 class SubstitutionTransformer(Transformer):

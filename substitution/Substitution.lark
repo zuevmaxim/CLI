@@ -1,4 +1,4 @@
-start: expression+
+start: expression*
 
 expression: single_quote_expression
     | double_quote_expression

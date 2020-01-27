@@ -14,6 +14,6 @@ class ParseHandler(Handler):
         self.parser = ShellParser(CommandFactory(environment))
 
     def run(self, input_string: str) -> None:
+        logging.debug("[ParseHandler] input = %s", input_string)
         result = self.parser.parse(input_string)
-        logging.debug("[ParseHandler] input = %s, output = %s", input_string, str(result))
         self.on_finish(result)

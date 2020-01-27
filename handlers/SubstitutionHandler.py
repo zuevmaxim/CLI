@@ -13,6 +13,6 @@ class SubstitutionHandler(Handler):
         self.parser = SubstitutionParser()
 
     def run(self, string: str) -> None:
+        logging.debug("[SubstitutionHandler] input = %s", string)
         result = self.parser.parse(self.environment, string)
-        logging.debug("[SubstitutionHandler] input = %s, output = %s", string, result)
         self.on_finish(result)
