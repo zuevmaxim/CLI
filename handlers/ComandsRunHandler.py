@@ -13,9 +13,9 @@ class CommandsRunHandler(Handler):
         output_stream = io.StringIO()
         for command in commands:
             self.environment.code = command.execute(input_stream, output_stream)
-            if self.environment.exit or self.environment.code != 0:
+            if self.environment.exit:
                 return
-            input_stream = output_stream
-            output_stream = io.StringIO()
+            input_stream, output_stream = output_stream, input_stream
+            output_stream.flush()
         result = input_stream.getvalue()
         self.on_finish(result)

@@ -21,6 +21,11 @@ class WcStatistics:
     def __str__(self):
         return "newlines = %d;  words = %d; bytes = %d" % (self.newlines, self.words, self.bytes)
 
+    def __eq__(self, other):
+        return self.newlines == other.newlines and \
+               self.words == other.words and \
+               self.bytes == other.bytes
+
 
 class WcCommand(Command):
     """Wc command calculates files or input statistics: lines, words, bytes."""
@@ -28,16 +33,24 @@ class WcCommand(Command):
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
         logging.debug("[WcCommand] args = %s", str(self.args))
         if len(self.args) > 0:
-            total = WcStatistics()
+            statistics = []
             success = True
             for file_name in self.args:
                 content = io.StringIO()
-                success &= read_from_file_log_errors(file_name, content, 'wc')
-                stats = self.calculate_statistics(content.getvalue())
-                total += stats
-                output_stream.write(str(stats) + ' ' + file_name + '\n')
+                current_success = read_from_file_log_errors(file_name, content, 'wc')
+                success &= current_success
+                if current_success:
+                    stats = self.calculate_statistics(content.getvalue())
+                    statistics.append((stats, file_name))
             if len(self.args) > 1:
-                output_stream.write(str(total) + ' total' + '\n')
+                stats_sum = sum(map(lambda p: p[0], statistics), WcStatistics())
+                statistics.append((stats_sum, 'total'))
+
+            def stats_and_file_to_string(pair: (WcStatistics, str)) -> str:
+                (stat, name) = pair
+                return "%s %s" % (str(stat), name)
+
+            output_stream.write('\n'.join(map(stats_and_file_to_string, statistics)))
             return 0 if success else 1
         else:
             stats = self.calculate_statistics(input_stream.getvalue())
@@ -47,4 +60,4 @@ class WcCommand(Command):
     @staticmethod
     def calculate_statistics(string: str) -> WcStatistics:
         """Calculate input_string statistics: lines, words, bytes."""
-        return WcStatistics(string.count('\n'), len(string.split()), len(string.encode()))
+        return WcStatistics(len(string.splitlines()), len(string.split()), len(string.encode()))
