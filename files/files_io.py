@@ -31,5 +31,5 @@ def read_from_file_log_errors(file_name: str, output_stream: io.StringIO, tag: s
     success = read_from_file(file_name, output_stream, error_stream)
     error = error_stream.getvalue()
     if len(error) > 0:
-        logging.error(("[%s]" % tag) + error)
+        logging.error("[%s] %s", tag, error)
     return success

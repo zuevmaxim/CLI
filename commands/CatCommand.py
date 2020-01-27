@@ -9,7 +9,7 @@ class CatCommand(Command):
     """Cat command concatenates files given as arguments."""
 
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
-        logging.debug("[CatCommand] args = " + str(self.args))
+        logging.debug("[CatCommand] args = %s", str(self.args))
         if len(self.args) > 0:
             success = True
             for file_name in self.args:

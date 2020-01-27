@@ -34,7 +34,7 @@ class CustomCommand(Command):
 
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
         name, args = self.args[0], self.args[1:]
-        logging.debug(("[CustomCommand, %s] args = " % name) + str(args))
+        logging.debug("[CustomCommand, %s] args = %s", name, str(args))
         command = which(name)
         if command is None:
             raise ShellException('Unknown command %s' % name)
@@ -44,5 +44,5 @@ class CustomCommand(Command):
             (out_str, err_str) = process.communicate(input_stream.getvalue())
             output_stream.write(out_str)
             if len(err_str) > 0:
-                logging.error(("[Custom command, %s]" % name) + err_str)
+                logging.error("[Custom command, %s] %s", name, err_str)
             return process.returncode

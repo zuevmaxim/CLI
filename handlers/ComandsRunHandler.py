@@ -8,7 +8,7 @@ class CommandsRunHandler(Handler):
     """Runs commands one by one passing data."""
 
     def run(self, commands: list) -> None:
-        logging.debug("[CommandsRunHandler] input = " + str(commands))
+        logging.debug("[CommandsRunHandler] input = %s", str(commands))
         input_stream = io.StringIO()
         output_stream = io.StringIO()
         for command in commands:

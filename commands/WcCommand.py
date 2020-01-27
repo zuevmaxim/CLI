@@ -26,7 +26,7 @@ class WcCommand(Command):
     """Wc command calculates files or input statistics: lines, words, bytes."""
 
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
-        logging.debug("[WcCommand] args = " + str(self.args))
+        logging.debug("[WcCommand] args = %s", str(self.args))
         if len(self.args) > 0:
             total = WcStatistics()
             success = True

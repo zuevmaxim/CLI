@@ -9,6 +9,6 @@ class EqualityCommand(Command):
 
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
         (name, value) = self.args
-        logging.debug("[EqualityCommand] %s=%s" % (name, value))
+        logging.debug("[EqualityCommand] %s=%s", name, value)
         self.environment.set(name, value)
         return 0

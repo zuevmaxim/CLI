@@ -15,5 +15,5 @@ class ParseHandler(Handler):
 
     def run(self, input_string: str) -> None:
         result = self.parser.parse(input_string)
-        logging.debug("[ParseHandler] input = " + input_string + ", output = " + str(result))
+        logging.debug("[ParseHandler] input = %s, output = %s", input_string, str(result))
         self.on_finish(result)

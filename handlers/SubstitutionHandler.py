@@ -14,5 +14,5 @@ class SubstitutionHandler(Handler):
 
     def run(self, string: str) -> None:
         result = self.parser.parse(self.environment, string)
-        logging.debug("[SubstitutionHandler] input = " + string + ", output = " + result)
+        logging.debug("[SubstitutionHandler] input = %s, output = %s", string, result)
         self.on_finish(result)

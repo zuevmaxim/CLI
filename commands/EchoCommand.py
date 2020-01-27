@@ -8,6 +8,6 @@ class EchoCommand(Command):
     """Echo command prints it's arguments. Input stream is ignored."""
 
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
-        logging.debug("[EchoCommand] args = " + str(self.args))
+        logging.debug("[EchoCommand] args = %s", str(self.args))
         output_stream.write(" ".join(self.args))
         return 0

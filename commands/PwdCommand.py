@@ -10,6 +10,6 @@ class PwdCommand(Command):
 
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
         path = os.getcwd()
-        logging.debug("[PwdCommand] wd=%s" % path)
+        logging.debug("[PwdCommand] wd=%s", path)
         output_stream.write(path)
         return 0
