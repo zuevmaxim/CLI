@@ -1,24 +1,20 @@
-start: expression*
+start : expression*
 
-expression: single_quote_expression
-    | double_quote_expression
-    | substitution
-    | STRING
-    | INTERNAL_STRING
+expression : single_quote_expression
+           | double_quote_expression
+           | substitution
+           | STRING
 
-single_quote_expression: SQ NO_SQ? SQ
+single_quote_expression : /'[^']*'/
 
-double_quote_expression: DQ double_quote_internal_expression* DQ
+double_quote_expression : "\"" double_quote_internal_expression* "\""
 
-double_quote_internal_expression: substitution
-    | INTERNAL_STRING
+double_quote_internal_expression : internal_substitution
+                                 | INTERNAL_STRING
 
-STRING: /[^"'$]+/
-INTERNAL_STRING: /[^"$]+/
+substitution : "$" NAME
+internal_substitution : "$" NAME
 
-substitution: DOLLAR NAME
-DOLLAR: "$"
-SQ: "'"
-NO_SQ: /[^']+/
-DQ: "\""
-NAME: /[a-zA-Z][a-zA-Z0-9]*/
+STRING : /[^"'$]+/
+INTERNAL_STRING : /[^"$]+/
+NAME : /[a-zA-Z][a-zA-Z0-9]*/

@@ -24,13 +24,20 @@ class SubstitutionTest(unittest.TestCase):
         res = self.parser.parse(self.env, '"hello $x"')
         self.assertEqual('"hello x_value"', res)
 
+    def testSubstitutionInDoubleAndSingleQuotes(self):
+        self.env.set('x', 'x_value')
+        res = self.parser.parse(self.env, '"\'hello $x\'"')
+        self.assertEqual('"\'hello x_value\'"', res)
+
     def testWithoutSubstitution(self):
         strings = ['echo hello | wc',
                    'echo "hello"',
                    "echo 'hello'",
                    'x=ghj',
                    'cat file.txt',
-                   "cat '$x'"]
+                   "cat '$x'",
+                   "cat '\"$x\"'",
+                   ]
         for string in strings:
             res = self.parser.parse(self.env, string)
             self.assertEqual(string, res)

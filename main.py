@@ -21,6 +21,8 @@ def main():
             shell.execute(input_string)
         except ShellException as e:
             print(e.error)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == "__main__":

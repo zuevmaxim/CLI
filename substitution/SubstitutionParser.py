@@ -1,4 +1,4 @@
-from lark import Lark, Transformer, Token
+from lark import Lark, Transformer, Token, v_args
 from lark.exceptions import UnexpectedCharacters, UnexpectedToken, LarkError
 from lark.reconstruct import Reconstructor
 
@@ -12,7 +12,7 @@ class SubstitutionParser:
     def __init__(self):
         substitution_file = 'substitution/Substitution.lark'
         file = open(substitution_file)
-        self.parser = Lark(file, parser="lalr")
+        self.parser = Lark(file, parser='earley')
         file.close()
 
     def parse(self, env: Environment, string: str) -> str:
@@ -33,11 +33,19 @@ class SubstitutionParser:
 class SubstitutionTransformer(Transformer):
     """Replace all substitution tokens by variable value."""
 
+    string_token = 'STRING'
+    internal_string_token = 'INTERNAL_STRING'
+
     def __init__(self, env: Environment):
         super().__init__()
         self.env = env
-        self.string_token = 'INTERNAL_STRING'
 
-    def substitution(self, args: list) -> Token:
-        name = self.env.get(args[1])
-        return Token(self.string_token, name)
+    @v_args(inline=True)
+    def substitution(self, name: str) -> Token:
+        value = self.env.get(name)
+        return Token(self.string_token, value)
+
+    @v_args(inline=True)
+    def internal_substitution(self, name: str) -> Token:
+        value = self.env.get(name)
+        return Token(self.internal_string_token, value)
