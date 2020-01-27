@@ -1,5 +1,6 @@
 from commands.CatCommand import CatCommand
 from commands.Command import Command
+from commands.CustomCommand import CustomCommand
 from commands.EchoCommand import EchoCommand
 from commands.EqualityCommand import EqualityCommand
 from commands.ExitCommand import ExitCommand
@@ -34,7 +35,7 @@ class CommandFactory:
             getter = self.switcher[command_name]
             return getter(args)
         else:
-            exit(1)  # TODO create CustomCommand
+            return self.create_custom_command([command_name] + args)
 
     def create_echo(self, args: list) -> EchoCommand:
         return EchoCommand(args, self.environment)
@@ -53,3 +54,6 @@ class CommandFactory:
 
     def create_wc(self, args: list) -> WcCommand:
         return WcCommand(args, self.environment)
+
+    def create_custom_command(self, args: list) -> CustomCommand:
+        return CustomCommand(args, self.environment)
