@@ -4,7 +4,7 @@ from lark import Tree, Token
 
 from commands.CommandFactory import CommandFactory
 from environment.Environment import Environment
-from parsing.ShellParser import ShellParser
+from parsing.parser.ShellParser import ShellParser
 
 start = 'start'
 equality = 'equality'

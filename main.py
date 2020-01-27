@@ -1,7 +1,8 @@
 import sys
 
 from Shell import Shell
-from ShellException import ShellException
+from errors.ShellError import ShellError
+from errors.ShellException import ShellException
 
 
 def enable_debug_logging() -> None:
@@ -14,7 +15,11 @@ def enable_debug_logging() -> None:
 
 
 def main():
-    shell = Shell()
+    try:
+        shell = Shell()
+    except ShellError as e:
+        print(e.error)
+        return 1
     while not shell.is_exit():
         try:
             input_string = sys.stdin.readline()[:-1]

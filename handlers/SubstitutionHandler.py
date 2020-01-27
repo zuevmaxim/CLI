@@ -2,7 +2,7 @@ import logging
 
 from environment.Environment import Environment
 from handlers.Handler import Handler
-from substitution.SubstitutionParser import SubstitutionParser
+from parsing.substitution.SubstitutionParser import SubstitutionParser
 
 
 class SubstitutionHandler(Handler):

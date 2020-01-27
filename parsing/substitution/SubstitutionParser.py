@@ -1,19 +1,17 @@
-from lark import Lark, Transformer, Token, v_args
+from lark import Transformer, Token, v_args
 from lark.exceptions import UnexpectedCharacters, UnexpectedToken, LarkError
 from lark.reconstruct import Reconstructor
 
-from ShellException import ShellException
 from environment.Environment import Environment
+from errors.ShellException import ShellException
+from parsing.LarkParserLoader import LarkParserLoader
 
 
 class SubstitutionParser:
     """Parse input in order to substitute all variables($var)."""
 
     def __init__(self):
-        substitution_file = 'substitution/Substitution.lark'
-        file = open(substitution_file)
-        self.parser = Lark(file, parser='earley')
-        file.close()
+        self.parser = LarkParserLoader.create_parser('parsing/substitution/Substitution.lark')
 
     def parse(self, env: Environment, string: str) -> str:
         try:

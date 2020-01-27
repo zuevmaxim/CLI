@@ -3,7 +3,7 @@ import logging
 from commands.CommandFactory import CommandFactory
 from environment.Environment import Environment
 from handlers.Handler import Handler
-from parsing.ShellParser import ShellParser
+from parsing.parser.ShellParser import ShellParser
 
 
 class ParseHandler(Handler):

@@ -1,7 +1,7 @@
 import unittest
 
 from environment.Environment import Environment
-from substitution.SubstitutionParser import SubstitutionParser
+from parsing.substitution.SubstitutionParser import SubstitutionParser
 
 
 class SubstitutionTest(unittest.TestCase):

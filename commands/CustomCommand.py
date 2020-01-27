@@ -3,7 +3,6 @@ import logging
 import subprocess
 from typing import Union
 
-from ShellException import ShellException
 from commands.Command import Command
 
 
@@ -37,7 +36,8 @@ class CustomCommand(Command):
         logging.debug("[CustomCommand, %s] args = %s", name, str(args))
         command = which(name)
         if command is None:
-            raise ShellException('Unknown command %s' % name)
+            logging.error('Unknown command %s', name)
+            return 1
         else:
             process = subprocess.Popen([command] + args, universal_newlines=True,
                                        stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

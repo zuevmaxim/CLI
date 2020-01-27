@@ -1,8 +1,8 @@
 import unittest
 
-from ShellException import ShellException
 from environment.Environment import Environment
 from environment.os_environment import extend_environment
+from errors.ShellException import ShellException
 
 
 class EnvironmentTest(unittest.TestCase):

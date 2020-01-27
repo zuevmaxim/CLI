@@ -33,15 +33,13 @@ class WcCommand(Command):
     def execute(self, input_stream: io.StringIO, output_stream: io.StringIO) -> int:
         logging.debug("[WcCommand] args = %s", str(self.args))
         if len(self.args) > 0:
-            statistics = []
-            success = True
-            for file_name in self.args:
-                content = io.StringIO()
-                current_success = read_from_file_log_errors(file_name, content, 'wc')
-                success &= current_success
-                if current_success:
-                    stats = self.calculate_statistics(content.getvalue())
-                    statistics.append((stats, file_name))
+            statistics = [
+                (self.calculate_statistics(content.getvalue()), file_name)
+                for file_name, content in zip(self.args, [io.StringIO() for _ in self.args])
+                if read_from_file_log_errors(file_name, content, 'wc')
+            ]
+            success = len(statistics) == len(self.args)
+
             if len(self.args) > 1:
                 stats_sum = sum(map(lambda p: p[0], statistics), WcStatistics())
                 statistics.append((stats_sum, 'total'))

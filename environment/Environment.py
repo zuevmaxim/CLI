@@ -1,4 +1,4 @@
-from ShellException import ShellException
+from errors.ShellException import ShellException
 
 
 class Environment:

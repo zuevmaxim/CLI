@@ -4,7 +4,7 @@ from commands.CommandFactory import CommandFactory
 from commands.EchoCommand import EchoCommand
 from commands.ExitCommand import ExitCommand
 from environment.Environment import Environment
-from parsing.ShellParser import ShellParser
+from parsing.parser.ShellParser import ShellParser
 
 
 class ShellTransformerTest(unittest.TestCase):

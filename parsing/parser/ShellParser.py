@@ -1,19 +1,17 @@
-from lark import Lark, Transformer, v_args, Tree
+from lark import Transformer, v_args, Tree
 from lark.exceptions import LarkError, UnexpectedCharacters, UnexpectedToken
 
-from ShellException import ShellException
 from commands.Command import Command
 from commands.CommandFactory import CommandFactory
+from errors.ShellException import ShellException
+from parsing.LarkParserLoader import LarkParserLoader
 
 
 class ShellParser:
     """Parse input string to list of commands."""
 
     def __init__(self, command_factory: CommandFactory):
-        grammar_file = 'parsing/ShellGrammar.lark'
-        file = open(grammar_file)
-        self.parser = Lark(file, parser='earley')
-        file.close()
+        self.parser = LarkParserLoader.create_parser('parsing/parser/ShellGrammar.lark')
         self.shell_transformer = ShellTransformer(command_factory)
 
     def parse(self, string: str) -> list:
