@@ -1,6 +1,6 @@
 language: python
 install:
-  - pip install lark-parser
+  - pip install lark-parser==0.7.8
   - pip install parameterized
 skript:
   - python -m unittest 

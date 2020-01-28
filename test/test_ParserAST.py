@@ -1,9 +1,11 @@
 import unittest
 
 from lark import Tree, Token
+from parameterized import parameterized
 
 from commands.CommandFactory import CommandFactory
 from environment.Environment import Environment
+from errors.ShellException import ShellException
 from parsing.parser.ShellParser import ShellParser
 
 start = 'start'
@@ -31,6 +33,11 @@ class ASTParseTest(unittest.TestCase):
         expected = Tree(start, [Tree(equality, [Token(NAME, 'x'), Tree(string, [Token(WORD, '3')])])])
         self.assertEqual(expected, result)
 
+    def testEqualityVarName(self):
+        result = self.ast("var_x = 3")
+        expected = Tree(start, [Tree(equality, [Token(NAME, 'var_x'), Tree(string, [Token(WORD, '3')])])])
+        self.assertEqual(expected, result)
+
     def testEqualitySingleQuoting(self):
         result = self.ast("x = '4 + 3'")
         expected = Tree(start, [Tree(equality, [Token(NAME, 'x'), Tree(string, [Token(SINGLE_QUOTE, '4 + 3')])])])
@@ -44,6 +51,11 @@ class ASTParseTest(unittest.TestCase):
     def testCommand(self):
         result = self.ast('pwd')
         expected = Tree(start, [Tree(commands, [Tree(command, [Token(COMMAND_NAME, 'pwd'), Tree(args, [])])])])
+        self.assertEqual(expected, result)
+
+    def testCustomCommand(self):
+        result = self.ast('/bin/echo')
+        expected = Tree(start, [Tree(commands, [Tree(command, [Token(COMMAND_NAME, '/bin/echo'), Tree(args, [])])])])
         self.assertEqual(expected, result)
 
     def testCommandWithOneArg(self):
@@ -79,6 +91,30 @@ class ASTParseTest(unittest.TestCase):
                                                 Tree(command, [Token(COMMAND_NAME, 'wc'), Tree(args, [])]),
                                                 Tree(command, [Token(COMMAND_NAME, 'wc'), Tree(args, [])])])])
         self.assertEqual(expected, result)
+
+    @parameterized.expand([
+        ('quotes command', '"echo" 123', 0),
+        ('illegal var name', '8 = 3', 0),
+    ])
+    def testUnexpectedCharacter(self, _, input_string, position):
+        try:
+            self.parser.parse(input_string)
+        except ShellException as e:
+            self.assertEqual('[Parser]Unexpected characters at position %d' % position, e.error)
+            return
+        assert False
+
+    @parameterized.expand([
+        ('wrong quotes', 'echo "hello'),
+        ('wrong quotes', 'echo \'hello"'),
+    ])
+    def testParseError(self, _, input_string):
+        try:
+            self.parser.parse(input_string)
+        except ShellException as e:
+            self.assertEqual('[Parser]Parse error', e.error)
+            return
+        assert False
 
 
 if __name__ == '__main__':
