@@ -25,5 +25,6 @@ class Handler(metaclass=ABCMeta):
         self.next.append(handler)
 
     def on_finish(self, result) -> None:
+        """Should be called after finishing processing."""
         for handler in self.next:
             handler.run(result)

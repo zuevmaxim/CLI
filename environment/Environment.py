@@ -10,9 +10,14 @@ class Environment:
         self.exit = False
 
     def set(self, key: str, value: str) -> None:
+        """Set key variable to value."""
         self.data[key] = value
 
     def get(self, key: str) -> str:
+        """
+        Get variable key value
+        :raises  ShellException if key variable is undefined
+        """
         if key in self.data:
             return self.data[key]
         else:

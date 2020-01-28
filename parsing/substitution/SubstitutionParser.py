@@ -14,6 +14,7 @@ class SubstitutionParser:
         self.parser = LarkParserLoader.create_parser('parsing/substitution/Substitution.lark')
 
     def parse(self, env: Environment, string: str) -> str:
+        """Parse input, substitute variable and return the result."""
         try:
             tree = self.parser.parse(string)
 

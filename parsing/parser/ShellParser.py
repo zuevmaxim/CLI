@@ -15,6 +15,7 @@ class ShellParser:
         self.shell_transformer = ShellTransformer(command_factory)
 
     def parse(self, string: str) -> list:
+        """Parse input, return list of commands."""
         try:
             tree = self.get_ast(string)
             commands = self.shell_transformer.transform(tree)
