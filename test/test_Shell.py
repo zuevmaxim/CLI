@@ -14,6 +14,7 @@ class ShellTest(unittest.TestCase):
         ('pipe', 'echo hello | wc\nexit\n', 'newlines = 1;  words = 1; bytes = 5\n'),
         ('wc', 'wc test/test_file_1.txt\nexit\n', 'newlines = 1;  words = 2; bytes = 12 test/test_file_1.txt\n'),
         ('cat', 'cat test/test_file_1.txt\nexit\n', 'Hello world!\n'),
+        ('grep', 'grep other test/test_file_2.txt\nexit\n', 'Some other string.\n'),
         ('wrong', '8 = 3\nexit\n', ''),
         ('substitution magic', 'x = ex\ny = it\necho $x$y\n$x$y\n', 'exit\n'),
     ])
