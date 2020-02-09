@@ -4,6 +4,7 @@ from errors.ShellException import ShellException
 
 
 class ArgParser(ArgumentParser):
+    """Commands argument parser."""
     def __init__(self):
         super().__init__(add_help=False)
 

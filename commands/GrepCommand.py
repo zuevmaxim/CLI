@@ -10,6 +10,7 @@ from files.files_io import read_from_file_log_errors
 
 
 class GrepArgsParser(ArgParser):
+    """Parser for grep command arguments."""
     def __init__(self):
         super().__init__()
         self.add_argument("-i", action="store_true")
@@ -20,6 +21,7 @@ class GrepArgsParser(ArgParser):
 
     @staticmethod
     def check_positive(value):
+        """Positive int type checker."""
         x = int(value)
         if x <= 0:
             raise ArgumentTypeError("%s is an invalid positive int value" % value)
