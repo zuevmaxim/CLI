@@ -2,11 +2,12 @@ import unittest
 
 from errors.ShellError import ShellError
 from parsing.LarkParserLoader import LarkParserLoader
+from parsing.parser.ShellParser import ShellParser
 
 
 class LarkParserLoaderTest(unittest.TestCase):
     def testSuccess(self):
-        parser = LarkParserLoader.create_parser('parsing/parser/ShellGrammar.lark')
+        parser = LarkParserLoader.create_parser(ShellParser.parser_path)
         self.assertIsNotNone(parser)
 
     def testFailNoFile(self):

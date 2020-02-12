@@ -4,14 +4,17 @@ from lark.reconstruct import Reconstructor
 
 from environment.Environment import Environment
 from errors.ShellException import ShellException
+from files.files_io import os_file_path
 from parsing.LarkParserLoader import LarkParserLoader
 
 
 class SubstitutionParser:
     """Parse input in order to substitute all variables($var)."""
 
+    parser_path = os_file_path('parsing', 'substitution', 'Substitution.lark')
+
     def __init__(self):
-        self.parser = LarkParserLoader.create_parser('parsing/substitution/Substitution.lark')
+        self.parser = LarkParserLoader.create_parser(self.parser_path)
 
     def parse(self, env: Environment, string: str) -> str:
         """Parse input, substitute variable and return the result."""

@@ -1,5 +1,6 @@
 import io
 import logging
+import os
 
 
 def read_from_file(file_name: str, output_stream: io.StringIO, error_stream: io.StringIO) -> bool:
@@ -15,6 +16,10 @@ def read_from_file(file_name: str, output_stream: io.StringIO, error_stream: io.
     except IOError as e:
         error_stream.write(e.strerror)
         return False
+
+
+def os_file_path(*args) -> str:
+    return os.sep.join(args)
 
 
 def read_from_file_log_errors(file_name: str, output_stream: io.StringIO, tag: str) -> bool:

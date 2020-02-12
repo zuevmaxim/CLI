@@ -10,7 +10,7 @@ pip install parameterized
  
 ***Запуск тестов***(из корневой директории): `python -m unittest`
 
-***Диаграмму классов*** можно найти по [ссылке](https://drive.google.com/open?id=1ODssv30CS9LZRMj7IkaDddZsB_sxwQT1).
+***Диаграмму классов*** можно найти по [ссылке](https://drive.google.com/open?id=17upEN-eFoba0HDIWcBM1FjDuDy4LM-l6).
 
 #### Детали реализации:
 1. `Shell` инкапсулирует в себе логику всего интерпретатора. Хранит:
