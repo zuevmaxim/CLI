@@ -1,8 +1,8 @@
-start : equality
+start : assignment
       | commands
       | eps
 
-equality : NAME "=" string
+assignment : NAME "=" string
 
 commands : command ("|" command)*
 

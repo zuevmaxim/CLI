@@ -9,7 +9,7 @@ from errors.ShellException import ShellException
 from parsing.parser.ShellParser import ShellParser
 
 start = 'start'
-equality = 'equality'
+assignment = 'assignment'
 NAME = 'NAME'
 WORD = 'WORD'
 string = 'string'
@@ -30,22 +30,22 @@ class ASTParseTest(unittest.TestCase):
 
     def testEqualityString(self):
         result = self.ast("x = 3")
-        expected = Tree(start, [Tree(equality, [Token(NAME, 'x'), Tree(string, [Token(WORD, '3')])])])
+        expected = Tree(start, [Tree(assignment, [Token(NAME, 'x'), Tree(string, [Token(WORD, '3')])])])
         self.assertEqual(expected, result)
 
     def testEqualityVarName(self):
         result = self.ast("var_x = 3")
-        expected = Tree(start, [Tree(equality, [Token(NAME, 'var_x'), Tree(string, [Token(WORD, '3')])])])
+        expected = Tree(start, [Tree(assignment, [Token(NAME, 'var_x'), Tree(string, [Token(WORD, '3')])])])
         self.assertEqual(expected, result)
 
     def testEqualitySingleQuoting(self):
         result = self.ast("x = '4 + 3'")
-        expected = Tree(start, [Tree(equality, [Token(NAME, 'x'), Tree(string, [Token(SINGLE_QUOTE, '4 + 3')])])])
+        expected = Tree(start, [Tree(assignment, [Token(NAME, 'x'), Tree(string, [Token(SINGLE_QUOTE, '4 + 3')])])])
         self.assertEqual(expected, result)
 
     def testEqualityDoubleQuoting(self):
         result = self.ast('x = "4 + 3"')
-        expected = Tree(start, [Tree(equality, [Token(NAME, 'x'), Tree(string, [Token(DOUBLE_QUOTE, '4 + 3')])])])
+        expected = Tree(start, [Tree(assignment, [Token(NAME, 'x'), Tree(string, [Token(DOUBLE_QUOTE, '4 + 3')])])])
         self.assertEqual(expected, result)
 
     def testCommand(self):

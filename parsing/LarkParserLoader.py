@@ -12,7 +12,7 @@ class LarkParserLoader:
 
     @staticmethod
     def create_parser(grammar_file) -> Lark:
-        """Create Lark parser with gramar specified in file."""
+        """Create Lark parser with grammar specified in file."""
         out, err = io.StringIO(), io.StringIO()
         success = read_from_file(grammar_file, out, err)
         if success:

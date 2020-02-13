@@ -3,12 +3,12 @@ import unittest
 from parameterized import parameterized
 
 from commands.Command import Command
-from commands.EqualityCommand import EqualityCommand
+from commands.AssignmentCommand import AssignmentCommand
 from environment.Environment import Environment
 from test.CommandTest import CommandTest
 
 
-class EqualityCommandTest(CommandTest):
+class AssignmentCommandTest(CommandTest):
     @parameterized.expand([
         ('empty', ['x', ''], ''),
         ('with value', ['var', 'val'], ''),
@@ -20,7 +20,7 @@ class EqualityCommandTest(CommandTest):
         self.assertEqual(args[1], self.environment.get(args[0]))
 
     def command(self, args: list, environment: Environment) -> Command:
-        return EqualityCommand(args, environment)
+        return AssignmentCommand(args, environment)
 
 
 if __name__ == '__main__':

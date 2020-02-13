@@ -65,8 +65,8 @@ class ShellTransformer(Transformer):
     def commands(args: list) -> list:
         return args
 
-    def equality(self, args: list) -> list:
-        return [self.command_factory.create_command(self.command_factory.equality_command_name, args)]
+    def assignment(self, args: list) -> list:
+        return [self.command_factory.create_command(self.command_factory.assignment_command_name, args)]
 
     @staticmethod
     def eps(_) -> list:
