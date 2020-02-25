@@ -6,6 +6,8 @@ from commands.AssignmentCommand import AssignmentCommand
 from commands.ExitCommand import ExitCommand
 from commands.PwdCommand import PwdCommand
 from commands.WcCommand import WcCommand
+from commands.LsCommand import LsCommand
+from commands.CdCommand import CdCommand
 from environment import Environment
 
 
@@ -23,6 +25,8 @@ class CommandFactory:
             "pwd": self.create_pwd,
             "cat": self.create_cat,
             "wc": self.create_wc,
+            "ls": self.create_ls,
+            "cd": self.create_cd,
         }
 
     def create_command(self, command_name: str, args: list) -> Command:
@@ -54,6 +58,12 @@ class CommandFactory:
 
     def create_wc(self, args: list) -> WcCommand:
         return WcCommand(args, self.environment)
+
+    def create_ls(self, args: list) -> LsCommand:
+        return LsCommand(args, self.environment)
+
+    def create_cd(self, args: list) -> LsCommand:
+        return CdCommand(args, self.environment)
 
     def create_custom_command(self, args: list) -> CustomCommand:
         return CustomCommand(args, self.environment)
