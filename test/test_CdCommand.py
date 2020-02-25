@@ -28,6 +28,7 @@ class CdCommandTest(CommandTest):
         return output_stream.getvalue()
 
     def tests(self):
+        start_pwd = self.get_pwd()
         self.run_command([], "")  # should go to $HOME
         home_pwd = self.get_pwd()
         self.assertEqual(home_pwd, os.environ.get("HOME"))
@@ -39,6 +40,7 @@ class CdCommandTest(CommandTest):
         self.assertEqual(self.get_pwd(), parent_home_pwd)
         self.assertEqual(self.run_command(["random_unique_folder_name_that_not_exists_nvjbw47r"], ""),
                          "Something went wrong")
+        self.run_command([start_pwd], "")
 
 
 if __name__ == '__main__':
