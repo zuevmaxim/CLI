@@ -14,10 +14,15 @@ class LsCommand(Command):
         # https://stackoverflow.com/questions/20590704/use-python-to-reproduce-bash-command-ls-a-output
         # @user596374: don't mix Unicode and bytestrings. You could use
         # curdir = lambda path: fsdecode(os.curdir) if isinstance(path, unicode) else os.curdir
-        parser = argparse.ArgumentParser()
+        parser = argparse.ArgumentParser(prog='ls')
         parser.add_argument('path', nargs='?', help='path, where we should list files and directories. Default=\'.\'',
                             default='.')
-        args = vars(parser.parse_args(self.args))
+        try:
+            args = vars(parser.parse_args(self.args))
+        except SystemExit:
+            output_stream.write("Bad arguments")
+            return 1
+
         path = args.get('path')
         logging.debug("[LsCommand] path=%s", path)
         try:
