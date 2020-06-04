@@ -34,3 +34,11 @@ class CommandTest(unittest.TestCase, metaclass=ABCMeta):
 
     def create_command(self, args: list) -> Command:
         return self.command(args, self.environment)
+
+    def execute_input(self, args, inp: str) -> str:
+        command = self.create_command(args)
+        self.input_stream.write(inp)
+        self.execute(command)
+        out = self.output_stream.getvalue()
+        self.setUp()
+        return out
