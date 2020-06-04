@@ -4,6 +4,7 @@ from commands.CustomCommand import CustomCommand
 from commands.EchoCommand import EchoCommand
 from commands.AssignmentCommand import AssignmentCommand
 from commands.ExitCommand import ExitCommand
+from commands.GrepCommand import GrepCommand
 from commands.PwdCommand import PwdCommand
 from commands.WcCommand import WcCommand
 from commands.LsCommand import LsCommand
@@ -25,6 +26,7 @@ class CommandFactory:
             "pwd": self.create_pwd,
             "cat": self.create_cat,
             "wc": self.create_wc,
+            "grep": self.create_grep,
             "ls": self.create_ls,
             "cd": self.create_cd,
         }
@@ -64,6 +66,9 @@ class CommandFactory:
 
     def create_cd(self, args: list) -> LsCommand:
         return CdCommand(args, self.environment)
+
+    def create_grep(self, args: list) -> GrepCommand:
+        return GrepCommand(args, self.environment)
 
     def create_custom_command(self, args: list) -> CustomCommand:
         return CustomCommand(args, self.environment)
