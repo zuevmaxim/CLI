@@ -5,11 +5,12 @@ from parameterized import parameterized
 from commands.Command import Command
 from commands.WcCommand import WcCommand, WcStatistics
 from environment.Environment import Environment
+from files.files_io import os_file_path
 from test.CommandTest import CommandTest
 
-file1 = 'test/test_file_1.txt'
-file2 = 'test/test_file_2.txt'
-fileNotExists = 'test/test_file_0.txt'
+file1 = os_file_path('test', 'test_file_1.txt')
+file2 = os_file_path('test', 'test_file_2.txt')
+fileNotExists = os_file_path('test', 'test_file_0.txt')
 
 
 class WcCommandTest(CommandTest):

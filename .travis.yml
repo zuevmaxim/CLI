@@ -1,6 +1,18 @@
-language: python
-install:
-  - pip install lark-parser==0.7.8
-  - pip install parameterized
-skript:
-  - python -m unittest 
+jobs:
+  include:
+    - name: "Linux"
+      language: python
+      install:
+        - pip install lark-parser==0.7.8
+        - pip install parameterized
+    - name: "Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python --version 3.8.0
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+      install:
+        - pip3 install lark-parser==0.7.8
+        - pip3 install parameterized
+script: python -m unittest

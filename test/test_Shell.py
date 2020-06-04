@@ -4,6 +4,9 @@ import unittest
 from parameterized import parameterized
 
 from Shell import Shell
+from files.files_io import os_file_path
+
+file1 = os_file_path('test', 'test_file_1.txt')
 
 
 class ShellTest(unittest.TestCase):

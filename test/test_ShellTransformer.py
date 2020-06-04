@@ -6,7 +6,7 @@ from commands.CatCommand import CatCommand
 from commands.CommandFactory import CommandFactory
 from commands.CustomCommand import CustomCommand
 from commands.EchoCommand import EchoCommand
-from commands.EqualityCommand import EqualityCommand
+from commands.AssignmentCommand import AssignmentCommand
 from commands.ExitCommand import ExitCommand
 from commands.PwdCommand import PwdCommand
 from commands.WcCommand import WcCommand
@@ -46,7 +46,7 @@ class ShellTransformerTest(unittest.TestCase):
         ('exit', 'exit', ExitCommand, []),
         ('cat', 'cat main.py', CatCommand, ['main.py']),
         ('custom command', '/bin/sh main.sh', CustomCommand, ['/bin/sh', 'main.sh']),
-        ('equality', 'x = 3', EqualityCommand, ['x', '3']),
+        ('equality', 'x = 3', AssignmentCommand, ['x', '3']),
         ('pwd', 'pwd', PwdCommand, []),
         ('wc', 'wc main.py', WcCommand, ['main.py']),
     ])

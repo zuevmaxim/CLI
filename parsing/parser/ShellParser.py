@@ -4,14 +4,16 @@ from lark.exceptions import LarkError, UnexpectedCharacters, UnexpectedToken
 from commands.Command import Command
 from commands.CommandFactory import CommandFactory
 from errors.ShellException import ShellException
+from files.files_io import os_file_path
 from parsing.LarkParserLoader import LarkParserLoader
 
 
 class ShellParser:
     """Parse input string to list of commands."""
+    parser_path = os_file_path('parsing', 'parser', 'ShellGrammar.lark')
 
     def __init__(self, command_factory: CommandFactory):
-        self.parser = LarkParserLoader.create_parser('parsing/parser/ShellGrammar.lark')
+        self.parser = LarkParserLoader.create_parser(self.parser_path)
         self.shell_transformer = ShellTransformer(command_factory)
 
     def parse(self, string: str) -> list:
@@ -63,8 +65,8 @@ class ShellTransformer(Transformer):
     def commands(args: list) -> list:
         return args
 
-    def equality(self, args: list) -> list:
-        return [self.command_factory.create_command(self.command_factory.equality_command_name, args)]
+    def assignment(self, args: list) -> list:
+        return [self.command_factory.create_command(self.command_factory.assignment_command_name, args)]
 
     @staticmethod
     def eps(_) -> list:
